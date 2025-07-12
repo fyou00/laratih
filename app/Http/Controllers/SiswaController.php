@@ -28,7 +28,7 @@ class SiswaController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
+    {  
     // Validasi data input
     $request->validate([
         'nama' => 'required|string|max:100',
@@ -62,10 +62,12 @@ class SiswaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Siswa $siswa)
+    public function edit($id)
     {
-        //
+        $siswa = Siswa::findOrFail($id); // Ambil data siswa berdasarkan ID
+        return view('siswa.edit', compact('siswa'));
     }
+
 
     /**
      * Update the specified resource in storage.
