@@ -31,7 +31,7 @@
                   class="bg-blue-500 text-white p-2 rounded hover:bg-blue-700 transition duration-300 ease-in-out">
                   Edit
                 </button>
-                | <button type="button"
+                <button type="button"
                   class="bg-red-500 text-white p-2 rounded hover:bg-red-700 transition duration-300 ease-in-out">
                   Delete
                 </button>
