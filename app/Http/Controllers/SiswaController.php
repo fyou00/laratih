@@ -72,10 +72,33 @@ class SiswaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Siswa $siswa)
-    {
-        //
-    }
+    public function update(Request $request, $id)
+{
+    // Validasi input
+    $request->validate([
+        'nama' => 'required|string|max:100',
+        'alamat' => 'required|string',
+        'agama' => 'required|string',
+        'jenis_kelamin' => 'required|boolean',
+        'asal_sekolah' => 'required|string',
+    ]);
+
+    // Ambil data siswa berdasarkan ID
+    $siswa = Siswa::findOrFail($id);
+
+    // Update data siswa
+    $siswa->update([
+        'nama' => $request->nama,
+        'alamat' => $request->alamat,
+        'agama' => $request->agama,
+        'jenis_kelamin' => $request->jenis_kelamin,
+        'asal_sekolah' => $request->asal_sekolah,
+    ]);
+
+    // Redirect kembali ke halaman daftar siswa atau detail
+    return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diperbarui.');
+}
+
 
     /**
      * Remove the specified resource from storage.
