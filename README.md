@@ -74,30 +74,13 @@ DB_PASSWORD=
 ```bash
 php artisan migrate
 ```
-> Perintah Artisan CLI pada Laravel yang digunakan untuk menjalankan migrasi database, yaitu membuat struktur tabel-tabel di database sesuai definisi yang telah ditulis dalam file-file migrasi.
+Perintah Artisan CLI pada Laravel yang digunakan untuk menjalankan migrasi database, yaitu membuat struktur tabel-tabel di database sesuai definisi yang telah ditulis dalam file-file migrasi.
 
 ### Fungsi php artisan migrate
 - Membaca semua file di folder database/migrations/.
 - Mengeksekusi perintah Schema::create, Schema::table, dll di dalam file migrasi tersebut.
 - Menyimpan informasi migrasi yang sudah dijalankan ke dalam tabel migrations di database.
 - Hanya menjalankan file migrasi yang belum pernah dijalankan sebelumnya.
-
-### Contoh Penggunaan:
-Misalnya kamu punya file `2024_01_01_000000_create_siswas_table.php` yang berisi:
-
-```bash
-Schema::create('siswas', function (Blueprint $table) {
-    $table->id();
-    $table->string('nama');
-    $table->timestamps();
-});
-```
-Ketika kamu menjalankan:
-
-```bash
-php artisan migrate
-```
-Maka Laravel akan membuat tabel siswas di database.
 
 ## 11. Buat Data User Dummy Melalui Seeder
 Isi seperti kode berikut dalam function run(): di file seeder yang berada di direktori database/seeders/ `SiswaSeeder.php`:
