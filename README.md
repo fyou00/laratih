@@ -100,9 +100,6 @@ php artisan migrate
 Maka Laravel akan membuat tabel siswas di database.
 
 ## 11. Buat Data User Dummy Melalui Seeder
-```bash
-php artisan db:seed
-```
 Isi seperti kode berikut dalam function run(): di file seeder yang berada di direktori database/seeders/ `SiswaSeeder.php`:
 ```bash
 Siswa::factory()->create([
@@ -112,6 +109,10 @@ Siswa::factory()->create([
     'jenis_kelamin' => '1', // 1 untuk laki-laki
     'asal_sekolah' => 'SMK Negeri 1 Lhokseumawe',
 ]);
+```
+Kemudian jalankan
+```bash
+php artisan db:seed
 ```
 
 ## 12. Jalankan Server Lokal
