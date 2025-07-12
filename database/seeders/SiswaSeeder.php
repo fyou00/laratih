@@ -14,7 +14,7 @@ class SiswaSeeder extends Seeder
     public function run(): void
     {
         Siswa::factory()->create([
-            'nama' => 'Fathur Rahman',
+            'nama' => 'Muhammad Fathurrahman',
             'alamat' => 'Hagu Selatan',
             'agama' => 'Islam',
             'jenis_kelamin' => '1', // 1 untuk laki-laki
