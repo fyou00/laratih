@@ -270,7 +270,7 @@ public function create() {
 }
 ```
 
-### 2.2 Tambahkan Method `store()` di SiswaController
+### 2.3 Tambahkan Method `store()` di SiswaController
 ```php
 public function store(Request $request) {  
     $request->validate([
@@ -381,3 +381,6 @@ public function destroy($id) {
 }
 ```
 
+## ✅ Selesai
+
+Sekarang halaman `/siswa` sudah bisa menampilkan daftar data siswa dari database. Kita telah berhasil membangun aplikasi CRUD sederhana menggunakan Laravel dengan Breeze sebagai starter kit-nya. Aplikasi ini memungkinkan pengguna untuk login, lalu melakukan berbagai operasi terhadap data siswa, seperti melihat daftar siswa, menambahkan data baru, mengedit data yang sudah ada, dan menghapus data yang tidak diperlukan. Semua fungsi ini ditangani melalui satu controller dan tampilan yang terpisah untuk setiap aksi.
