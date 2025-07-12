@@ -20,7 +20,4 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('siswa', SiswaController::class);
 
-Route::get('/siswa/create', [SiswaController::class, 'create'])->name('siswa.create');
-Route::post('/siswa', [SiswaController::class, 'store'])->name('siswa.store');
-
 require __DIR__.'/auth.php';
