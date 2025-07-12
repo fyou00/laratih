@@ -27,14 +27,19 @@
               <td>{{ $siswa->agama }}</td>
               <td>{{ $siswa->jenis_kelamin }}</td>
               <td>{{ $siswa->asal_sekolah }}</td>
-              <td><button type="button"
+              <td class="flex items-center gap-2"><a href="{{ route('siswa.edit', $siswa->id) }}"
                   class="bg-blue-500 text-white p-2 rounded hover:bg-blue-700 transition duration-300 ease-in-out">
                   Edit
-                </button>
-                <button type="button"
-                  class="bg-red-500 text-white p-2 rounded hover:bg-red-700 transition duration-300 ease-in-out">
-                  Delete
-                </button>
+                </a>
+                <form action="{{ route('siswa.destroy', $siswa->id) }}" method="POST"
+                  onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit"
+                    class="bg-red-500 text-white p-2 rounded hover:bg-red-700 transition duration-300 ease-in-out">
+                    Delete
+                  </button>
+                </form>
               </td>
             </tr>
             @endforeach
