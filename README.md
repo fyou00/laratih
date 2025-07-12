@@ -140,7 +140,7 @@ Dengan pendekatan ini, Laravel secara otomatis menghasilkan tujuh route standar 
 
 ---
 
-## 1. CREATE
+## 1. Read
 ### 1.1 Buat folder view
 Buat folder `siswa` di dalam direktori:
 ```
@@ -171,9 +171,7 @@ Buat file `resources/views/siswa/index.blade.php` dan isi dengan kode awal berik
 </x-app-layout>
 ```
 
----
-
-## 3. Tambahkan Method `index()` di SiswaController
+## 1.3 Tambahkan Method `index()` di SiswaController
 
 Edit file `app/Http/Controllers/SiswaController.php` dan timpa bagian baris kode fungsi index dengan kode berikut:
 
@@ -185,7 +183,7 @@ public function index()
 }
 ```
 
-## 4. Tambahkan Link Navigasi ke Menu
+## 1.4 Tambahkan Link Navigasi ke Menu
 
 Edit file `resources/views/layouts/navigation.blade.php` dan tambahkan kode ini dibawah `x-nav-link Dashboard`:
 
@@ -195,7 +193,7 @@ Edit file `resources/views/layouts/navigation.blade.php` dan tambahkan kode ini 
 </x-nav-link>
 ```
 
-## 5. Tampilkan Tabel Data di `index.blade.php`
+## 1.5 Tampilkan Tabel Data di `index.blade.php`
 
 **Hapus** baris:
 
@@ -229,13 +227,173 @@ Edit file `resources/views/layouts/navigation.blade.php` dan tambahkan kode ini 
                 {{ $siswa->jenis_kelamin ? 'Laki-laki' : 'Perempuan' }}
             </td>
             <td class="border px-4 py-2">{{ $siswa->asal_sekolah }}</td>
-            <td class="border px-4 py-2">Edit | Delete</td>
+            <td class="border px-4 py-2">
+                <a href="{{ route('siswa.edit', $siswa->id) }}">Edit</a>
+                <form action="{{ route('siswa.destroy', $siswa->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         @endforeach
     </tbody>
 </table>
 ```
 
-## ✅ Selesai
+---
 
-Sekarang halaman `/siswa` sudah bisa menampilkan daftar data siswa dari database.
+## 2. Create
+### 2.1 Buat File `create.blade.php`
+```bash
+<x-app-layout>
+  <x-slot name="header">
+    <h2>Tambah Siswa</h2>
+  </x-slot>
+
+  <div>
+    <form action="{{ route('siswa.store') }}" method="POST">
+        @csrf
+        <label>Nama:</label><br>
+        <input type="text" name="nama" required>
+    
+        <label>Alamat:</label><br>
+        <textarea name="alamat" required></textarea>
+     
+        <label>Agama:</label><br>
+        <input type="text" name="agama" required>
+      
+        <label>Jenis Kelamin:</label><br>
+        <select name="jenis_kelamin" required>
+          <option value="1">Laki-laki</option>
+          <option value="0">Perempuan</option>
+        </select>
+      
+        <label>Asal Sekolah:</label><br>
+        <input type="text" name="asal_sekolah" required>
+
+        <button type="submit">Simpan</button>
+        <a href="{{ route('siswa.index') }}">Kembali</a>
+    </form>
+  </div>
+</x-app-layout>
+```
+
+### 2.2 Tambahkan Method `create()` di SiswaController
+```php
+public function create() {
+    return view('siswa.create');
+}
+```
+
+### 2.2 Tambahkan Method `store()` di SiswaController
+```php
+public function store(Request $request) {  
+    $request->validate([
+        'nama' => 'required|string|max:100',
+        'alamat' => 'required|string',
+        'agama' => 'required|string',
+        'jenis_kelamin' => 'required|boolean',
+        'asal_sekolah' => 'required|string',
+    ]);
+
+    Siswa::create([
+        'nama' => $request->nama,
+        'alamat' => $request->alamat,
+        'agama' => $request->agama,
+        'jenis_kelamin' => $request->jenis_kelamin,
+        'asal_sekolah' => $request->asal_sekolah,
+    ]);
+
+    return redirect()->back();
+}
+```
+
+---
+
+## 3. Edit
+### 3.1 Buat File `edit.blade.php`
+
+Buat file `resources/views/siswa/edit.blade.php` dan isi dengan kode awal berikut:
+```bash
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
+
+    <form action="{{ route('siswa.update', $siswa->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        <label>Nama:</label>
+        <input type="text" name="nama" value="{{ $siswa->nama }}" required>
+
+        <label>Alamat:</label>
+        <textarea name="alamat" required>{{ $siswa->alamat }}</textarea>
+
+        <label>Agama:</label>
+        <input type="text" name="agama" value="{{ $siswa->agama }}" required>
+
+        <label>Jenis Kelamin:</label>
+        <select name="jenis_kelamin">
+            <option value="1" {{ $siswa->jenis_kelamin ? 'selected' : '' }}>Laki-laki</option>
+            <option value="0" {{ !$siswa->jenis_kelamin ? 'selected' : '' }}>Perempuan</option>
+        </select>
+
+        <label>Asal Sekolah:</label>
+        <input type="text" name="asal_sekolah" value="{{ $siswa->asal_sekolah }}" required>
+
+        <button type="submit">Update</button>
+    </form>
+<x-app-layout>
+```
+
+### 3.2 Tambahkan Method `edit()` di SiswaController
+```php
+public function edit($id)
+{
+    $siswa = Siswa::findOrFail($id); // Ambil data siswa berdasarkan ID
+    return view('siswa.edit', compact('siswa'));
+}
+```
+
+### 3.3 Tambahkan Method `update()` di SiswaController
+```php
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'nama' => 'required|string|max:100',
+        'alamat' => 'required|string',
+        'agama' => 'required|string',
+        'jenis_kelamin' => 'required|boolean',
+        'asal_sekolah' => 'required|string',
+    ]);
+
+    $siswa = Siswa::findOrFail($id);
+
+    $siswa->update([
+        'nama' => $request->nama,
+        'alamat' => $request->alamat,
+        'agama' => $request->agama,
+        'jenis_kelamin' => $request->jenis_kelamin,
+        'asal_sekolah' => $request->asal_sekolah,
+    ]);
+
+    return redirect()->route('siswa.index');
+}
+```
+
+---
+
+## 4. Delete
+### 4.1 Tambahkan Method `destroy()` di SiswaController
+```php
+public function destroy($id) {
+    $siswa = Siswa::findOrFail($id);
+    $siswa->delete();
+    return redirect()->route('siswa.index');
+}
+```
+

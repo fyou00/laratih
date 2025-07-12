@@ -21,7 +21,7 @@ class SiswaController extends Controller
      */
     public function create()
     {
-    return view('siswa.create');
+      return view('siswa.create');
     }
 
     /**
@@ -96,7 +96,7 @@ class SiswaController extends Controller
     ]);
 
     // Redirect kembali ke halaman daftar siswa atau detail
-    return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diperbarui.');
+    return redirect()->route('siswa.index');
 }
 
 
