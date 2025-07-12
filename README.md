@@ -173,10 +173,6 @@ Buat file `resources/views/siswa/index.blade.php` dan isi dengan kode awal berik
 
 ---
 
-
-
----
-
 ## 3. Tambahkan Method `index()` di SiswaController
 
 Edit file `app/Http/Controllers/SiswaController.php` dan timpa bagian baris kode fungsi index dengan kode berikut:
@@ -189,8 +185,6 @@ public function index()
 }
 ```
 
----
-
 ## 4. Tambahkan Link Navigasi ke Menu
 
 Edit file `resources/views/layouts/navigation.blade.php` dan tambahkan kode ini dibawah `x-nav-link Dashboard`:
@@ -200,8 +194,6 @@ Edit file `resources/views/layouts/navigation.blade.php` dan tambahkan kode ini 
     {{ __('Siswa') }}
 </x-nav-link>
 ```
-
----
 
 ## 5. Tampilkan Tabel Data di `index.blade.php`
 
@@ -243,8 +235,6 @@ Edit file `resources/views/layouts/navigation.blade.php` dan tambahkan kode ini 
     </tbody>
 </table>
 ```
-
----
 
 ## ✅ Selesai
 
