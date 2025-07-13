@@ -228,7 +228,7 @@ Edit file `resources/views/layouts/navigation.blade.php` dan tambahkan kode ini 
 ---
 
 ## 2. Create
-### 2.1 Buat File `create.blade.php`
+### 2.1 Buat File `resources/views/siswa/create.blade.php` dan tambahkan kode berikut
 ```bash
 <x-app-layout>
   <x-slot name="header">
