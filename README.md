@@ -30,13 +30,12 @@ npm install
 ```bash
 npm run dev
 ```
->Jalankan ini setiap membuka code editor dari awal ketika mau mulai ngoding
 
 ## 6. Model dan Migration untuk Tabel `Siswa`
 ```bash
 php artisan make:model Siswa -m
 ```
->Perintah dalam Laravel Artisan CLI (Command Line Interface) untuk membuat model beserta file migrasinya secara otomatis.
+Perintah dalam Laravel Artisan CLI (Command Line Interface) untuk membuat model beserta file migrasinya secara otomatis.
 
 ## 7. Buat Controller untuk `Siswa`
 ```bash
@@ -82,23 +81,8 @@ Perintah Artisan CLI pada Laravel yang digunakan untuk menjalankan migrasi datab
 - Menyimpan informasi migrasi yang sudah dijalankan ke dalam tabel migrations di database.
 - Hanya menjalankan file migrasi yang belum pernah dijalankan sebelumnya.
 
-## 11. Buat Data User Dummy Melalui Seeder
-Isi seperti kode berikut dalam function run(): di file seeder yang berada di direktori database/seeders/ `SiswaSeeder.php`:
-```bash
-Siswa::factory()->create([
-    'nama' => 'Fathur Rahman',
-    'alamat' => 'Hagu Selatan',
-    'agama' => 'Islam',
-    'jenis_kelamin' => '1', // 1 untuk laki-laki
-    'asal_sekolah' => 'SMK Negeri 1 Lhokseumawe',
-]);
-```
-Kemudian jalankan
-```bash
-php artisan db:seed
-```
 
-## 12. Jalankan Server Lokal
+## 11. Jalankan Server Lokal
 Aplikasi Laravel siap digunakan dengan Breeze dan model `Siswa` telah tersedia. Pastikan untuk menjalankan server lokal:
 
 ```bash
@@ -228,7 +212,8 @@ Edit file `resources/views/layouts/navigation.blade.php` dan tambahkan kode ini 
 ---
 
 ## 2. Create
-### 2.1 Buat File `resources/views/siswa/create.blade.php` dan tambahkan kode berikut
+### 2.1 Buat File create.blade.php
+Buat file `resources/views/siswa/create.blade.php` dan tambahkan kode berikut
 ```bash
 <x-app-layout>
   <x-slot name="header">
@@ -293,6 +278,17 @@ public function store(Request $request) {
 }
 ```
 
+### 2.4 Tambahkan $fillable pada Model Siswa
+Buka model siswa di dalam direktori
+`app/Models/Siswa.php` dan tambahkan kode berikut
+```bash
+class Siswa extends Model
+{
+    protected $fillable = [
+        'nama', 'alamat', 'agama', 'jenis_kelamin', 'asal_sekolah'
+    ];
+}
+```
 ---
 
 ## 3. Edit
